@@ -1,20 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Debug logging
-    console.log('DOM Content Loaded');
-
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
-
-    console.log('Lightbox element:', lightbox);
-    console.log('Lightbox image element:', lightboxImg);
-
     const galleryImages = document.querySelectorAll('.gallery-item img');
-    console.log('Gallery images found:', galleryImages.length);
 
     // Open lightbox
     galleryImages.forEach(img => {
         img.addEventListener('click', (e) => {
-            console.log('Image clicked:', img.src);
             lightboxImg.src = img.src;
             lightbox.style.display = 'block';
             document.body.style.overflow = 'hidden';
@@ -50,11 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Add fade-in animation for gallery images as they come into view
-    const observerOptions = {
-        threshold: 0.1
-    };
-
+    // Add fade-in animation for gallery images
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -62,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 entry.target.style.transform = 'translateY(0)';
             }
         });
-    }, observerOptions);
+    }, { threshold: 0.1 });
 
     document.querySelectorAll('.gallery-item').forEach(item => {
         item.style.opacity = 0;
